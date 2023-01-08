@@ -1,0 +1,41 @@
+﻿using AirPollutionPrediction.Application.Interfaces.Chat;
+using AirPollutionPrediction.Application.Models.Chat;
+using AirPollutionPrediction.Application.Responses.Identity;
+using AirPollutionPrediction.Shared.Wrapper;
+using AirPollutionPrediction.UI.Infrastructure.Extensions;
+using AirPollutionPrediction.UI.Infrastructure.Routes;
+using System.Net.Http.Json;
+
+namespace AirPollutionPrediction.MAUI.Managers.Communication
+{
+    public class ChatManager : IChatManager
+    {
+        private readonly HttpClient _httpClient;
+
+        public ChatManager(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        public async Task<IResult<IEnumerable<ChatHistoryResponse>>> GetChatHistoryAsync(string cId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync(ChatEndpoint.GetChatHistory(cId));
+            IResult<IEnumerable<ChatHistoryResponse>> data = await response.ToResult<IEnumerable<ChatHistoryResponse>>();
+            return data;
+        }
+
+        public async Task<IResult<IEnumerable<ChatUserResponse>>> GetChatUsersAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync(ChatEndpoint.GetAvailableUsers);
+            IResult<IEnumerable<ChatUserResponse>> data = await response.ToResult<IEnumerable<ChatUserResponse>>();
+            return data;
+        }
+
+        public async Task<IResult> SaveMessageAsync(ChatHistory<IChatUser> chatHistory)
+        {
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(ChatEndpoint.SaveMessage, chatHistory);
+            IResult data = await response.ToResult();
+            return data;
+        }
+    }
+}

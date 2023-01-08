@@ -1,0 +1,46 @@
+﻿05:09:34:964	start forecasting
+05:09:35:792	|      Trainer                             RMSE       Duration       |
+05:09:35:794	|--------------------------------------------------------------------|
+05:09:35:795	|0     ForecastBySsa                       2.4713     0.2630         |
+05:09:35:831	|2     ForecastBySsa                       2.4713     0.0060         |
+05:09:35:840	|4     ForecastBySsa                       2.4713     0.0040         |
+05:09:35:856	|10    ForecastBySsa                       2.4713     0.0050         |
+05:09:35:885	|11    ForecastBySsa                       2.4713     0.0050         |
+05:09:35:885	|13    ForecastBySsa                       2.4713     0.0040         |
+05:09:35:885	|16    ForecastBySsa                       2.4713     0.0050         |
+05:10:27:180	|17    ForecastBySsa                       1435310251.0480 51.3000   |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:27:210	|                          Experiment Results                        |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:27:210	|                               Summary                              |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:27:210	|ML Task: forecasting                                                |
+05:10:27:210	|Dataset: C:\Users\Asus\Downloads\south-korean-pollution-data.csv\south-korean-pollution-data.csv|
+05:10:27:210	|Label : co                                                          |
+05:10:27:210	|Total experiment time :    52.0000 Secs                             |
+05:10:27:210	|Total number of models explored: 18                                 |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:27:210	|                        Top 5 models explored                       |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:27:210	|      Trainer                             RMSE       Duration       |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:27:210	|0     ForecastBySsa                       2.4713     0.2630         |
+05:10:27:210	|2     ForecastBySsa                       2.4713     0.0060         |
+05:10:27:210	|4     ForecastBySsa                       2.4713     0.0040         |
+05:10:27:210	|10    ForecastBySsa                       2.4713     0.0050         |
+05:10:27:210	|11    ForecastBySsa                       2.4713     0.0050         |
+05:10:27:210	|--------------------------------------------------------------------|
+05:10:28:368	Generate code behind files
+05:10:29:838	
+05:10:29:838	
+05:10:29:838	Copying generated code to project...
+05:10:29:844	Copying MLModel.consumption.cs to folder: D:\Projects\AirPollutionPrediction\AirPollutionPrediction.API
+05:10:29:849	Copying MLModel.training.cs to folder: D:\Projects\AirPollutionPrediction\AirPollutionPrediction.API
+05:10:29:849	COMPLETED
+05:10:29:849	
+05:10:29:849	
+05:10:29:849	Updating nuget dependencies...
+05:10:29:849	Starting update NuGet dependencies async.
+05:10:29:853	Project Miscellaneous Files cannot be accessed. It may be unloaded.
+05:10:29:859	Couldn't find project named D:\Projects\AirPollutionPrediction\AirPollutionPrediction.API\AirPollutionPrediction.API.csproj
+05:10:29:859	Installing nuget package, package ID: Microsoft.ML.TimeSeries, package Version: 2.0.0

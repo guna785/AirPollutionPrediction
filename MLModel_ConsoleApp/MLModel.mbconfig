@@ -1,0 +1,198 @@
+﻿{
+  "Scenario": "Forecasting",
+  "DataSource": {
+    "Type": "TabularFile",
+    "Version": 1,
+    "FilePath": "C:\\Users\\Asus\\Downloads\\south-korean-pollution-data.csv\\south-korean-pollution-data.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "date",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 3
+      },
+      {
+        "ColumnName": "pm25",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 3
+      },
+      {
+        "ColumnName": "pm10",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 3
+      },
+      {
+        "ColumnName": "o3",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 3
+      },
+      {
+        "ColumnName": "no2",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 3
+      },
+      {
+        "ColumnName": "so2",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 3
+      },
+      {
+        "ColumnName": "co",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 3
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 2,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 2.4712841016812779,
+        "RuntimeInSeconds": 0.223,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2,
+            "SeriesLength": 10,
+            "TrainSize": 34530,
+            "Horizon": 10,
+            "OutputColumnName": "co",
+            "InputColumnName": "co",
+            "ConfidenceLowerBoundColumn": "co_LB",
+            "ConfidenceUpperBoundColumn": "co_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 2.4712841016812779,
+        "RuntimeInSeconds": 0.005,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2,
+            "SeriesLength": 2021,
+            "TrainSize": 34530,
+            "Horizon": 10,
+            "OutputColumnName": "co",
+            "InputColumnName": "co",
+            "ConfidenceLowerBoundColumn": "co_LB",
+            "ConfidenceUpperBoundColumn": "co_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 2.4712841016812779,
+        "RuntimeInSeconds": 0.005,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2,
+            "SeriesLength": 1499,
+            "TrainSize": 34530,
+            "Horizon": 10,
+            "OutputColumnName": "co",
+            "InputColumnName": "co",
+            "ConfidenceLowerBoundColumn": "co_LB",
+            "ConfidenceUpperBoundColumn": "co_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 2.4712841016812779,
+        "RuntimeInSeconds": 0.007,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2,
+            "SeriesLength": 4312,
+            "TrainSize": 34530,
+            "Horizon": 10,
+            "OutputColumnName": "co",
+            "InputColumnName": "co",
+            "ConfidenceLowerBoundColumn": "co_LB",
+            "ConfidenceUpperBoundColumn": "co_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 12204545081092.516,
+        "RuntimeInSeconds": 73.724,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2271,
+            "SeriesLength": 4050,
+            "TrainSize": 34530,
+            "Horizon": 10,
+            "OutputColumnName": "co",
+            "InputColumnName": "co",
+            "ConfidenceLowerBoundColumn": "co_LB",
+            "ConfidenceUpperBoundColumn": "co_UB"
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "ForecastBySsa"
+    },
+    "Schema": "e0",
+    "MetricName": "RMSE"
+  },
+  "Type": "TrainingConfig",
+  "Version": 3,
+  "TrainingOption": {
+    "Version": 1,
+    "TrainingTime": 10,
+    "Type": "ForecastingTrainingOption",
+    "UseCrossValidation": false,
+    "Seed": 0,
+    "OptimizeMetric": "RMSE",
+    "Horizon": 10,
+    "TimeColumn": "date",
+    "LabelColumn": "co",
+    "UseDefaultIndex": false
+  }
+}
