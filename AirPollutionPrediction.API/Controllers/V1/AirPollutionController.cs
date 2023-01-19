@@ -1,6 +1,7 @@
 ﻿using AirPollutionPrediction.Application.Features.AirPollution.Commands.AddEdit;
 using AirPollutionPrediction.Application.Features.AirPollution.Queries.GetPaged;
 using AirPollutionPrediction_API;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,7 @@ namespace AirPollutionPrediction.API.Controllers.V1
         /// <param name="command"></param>
         /// <returns>Status 200 OK</returns>
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post(AddEditAirPollutionCommand command)
         {
             var result = MLModel.Predict(new MLModel.ModelInput()
