@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\AirPollution\Commands\NewFolder\**" />
+    <EmbeddedResource Remove="Features\AirPollution\Commands\NewFolder\**" />
+    <None Remove="Features\AirPollution\Commands\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Validators\Features\" />
   </ItemGroup>
 
