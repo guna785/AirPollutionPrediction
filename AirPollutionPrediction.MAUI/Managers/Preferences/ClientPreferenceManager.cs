@@ -70,10 +70,10 @@ namespace AirPollutionPrediction.MAUI.Managers.Preferences
             {
                 if (preference.IsDarkMode == true)
                 {
-                    return DentalTheme.DarkTheme;
+                    return AirPollutionTheme.DarkTheme;
                 }
             }
-            return DentalTheme.DefaultTheme;
+            return AirPollutionTheme.DefaultTheme;
         }
         public async Task<bool> IsRTL()
         {

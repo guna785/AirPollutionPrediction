@@ -45,7 +45,7 @@ namespace AirPollutionPrediction.MAUI.Extensions
 {
     public static class WebAssemblyHostBuilderExtensions
     {
-        private const string ClientName = "DentalManagement.Server";
+        private const string ClientName = "AirPollutionManagement.Server";
 
         public static MauiAppBuilder AddClientServices(this MauiAppBuilder builder)
         {
@@ -69,8 +69,8 @@ namespace AirPollutionPrediction.MAUI.Extensions
                 })
                 .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies())
                 .AddScoped<ClientPreferenceManager>()
-                .AddScoped<DentalAuthenticationStateProvider>()
-                .AddScoped<AuthenticationStateProvider, DentalAuthenticationStateProvider>()
+                .AddScoped<AirPollutionAuthenticationStateProvider>()
+                .AddScoped<AuthenticationStateProvider, AirPollutionAuthenticationStateProvider>()
                 .AddManagers()
                 .AddTransient<AuthenticationHeaderHandler>()
                 .AddScoped(sp => sp

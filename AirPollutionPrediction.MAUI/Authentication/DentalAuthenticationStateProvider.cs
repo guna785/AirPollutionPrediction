@@ -7,11 +7,11 @@ using System.Text.Json;
 
 namespace AirPollutionPrediction.MAUI.Authentication
 {
-    public class DentalAuthenticationStateProvider : AuthenticationStateProvider
+    public class AirPollutionAuthenticationStateProvider : AuthenticationStateProvider
     {
         private readonly HttpClient _httpClient;
 
-        public DentalAuthenticationStateProvider(HttpClient httpClient)
+        public AirPollutionAuthenticationStateProvider(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

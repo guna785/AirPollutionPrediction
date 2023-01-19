@@ -59,7 +59,7 @@ namespace AirPollutionPrediction.MAUI.Managers.Identity.Authentication
                     //await SecureStorage.SetAsync(StorageConstants.Local.UserImageURL, userImageURL);
                 }
 
-                await ((DentalAuthenticationStateProvider)_authenticationStateProvider).StateChangedAsync();
+                await ((AirPollutionAuthenticationStateProvider)_authenticationStateProvider).StateChangedAsync();
 
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
@@ -76,7 +76,7 @@ namespace AirPollutionPrediction.MAUI.Managers.Identity.Authentication
             _ = SecureStorage.Remove(StorageConstants.Local.AuthToken);
             _ = SecureStorage.Remove(StorageConstants.Local.RefreshToken);
             _ = SecureStorage.Remove(StorageConstants.Local.UserImageURL);
-            ((DentalAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
+            ((AirPollutionAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
             _httpClient.DefaultRequestHeaders.Authorization = null;
             return await Result.SuccessAsync();
         }

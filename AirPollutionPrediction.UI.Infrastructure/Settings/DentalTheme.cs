@@ -2,7 +2,7 @@
 
 namespace AirPollutionPrediction.UI.Infrastructure.Settings
 {
-    public class DentalTheme
+    public class AirPollutionTheme
     {
         private static readonly Typography DefaultTypography = new()
         {

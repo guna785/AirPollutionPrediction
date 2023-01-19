@@ -55,7 +55,7 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        _currentTheme = DentalTheme.DefaultTheme;
+        _currentTheme = AirPollutionTheme.DefaultTheme;
         _currentTheme = await _clientPreferenceManager.GetCurrentThemeAsync();
         _rightToLeft = await _clientPreferenceManager.IsRTL();
         _interceptor.RegisterEvent();
@@ -81,8 +81,8 @@
     {
         bool isDarkMode = await _clientPreferenceManager.ToggleDarkModeAsync();
         _currentTheme = isDarkMode
-            ? DentalTheme.DefaultTheme
-            : DentalTheme.DarkTheme;
+            ? AirPollutionTheme.DefaultTheme
+            : AirPollutionTheme.DarkTheme;
     }
 
     public void Dispose()

@@ -2,8 +2,8 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<MainLayout> _localizer
 
 <MudAppBar Elevation="25">
-    <MudIcon Icon="@CustomIcons.DentalWhite" Size="Size.Large" ViewBox="0 0 250 250" />
-    <MudText Typo="Typo.h6" Class="ml-4">Dental Manager</MudText>
+    @*<MudIcon Icon="@CustomIcons.AirPollutionWhite" Size="Size.Large" ViewBox="0 0 250 250" />*@
+    <MudText Typo="Typo.h6" Class="ml-4">AirPollution Manager</MudText>
     <MudToolBar DisableGutters="true">
         <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
     </MudToolBar>
