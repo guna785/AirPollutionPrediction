@@ -88,7 +88,22 @@ namespace AirPollutionPrediction.API.Extensions
                         });
                 });
             }
-
+            else
+            {
+                _ = services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(
+                        builder =>
+                        {
+                            _ = builder
+                                .AllowCredentials()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowAnyOrigin();
+                        });
+                });
+            }
+            
             return services;
         }
 
