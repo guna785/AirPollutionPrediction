@@ -78,7 +78,7 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 app.UseForwarding(app.Configuration);
 app.UseExceptionHandling(app.Environment);
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 //app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();

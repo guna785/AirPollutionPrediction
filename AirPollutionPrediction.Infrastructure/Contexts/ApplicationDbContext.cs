@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using AirPollutionPrediction.Application.Interfaces.Services;
 using AirPollutionPrediction.Application.Models.Chat;
 using AirPollutionPrediction.Domain.Contract;
+using AirPollutionPrediction.Domain.Entities;
 
 namespace AirPollutionPrediction.Infrastructure.Contexts
 {
@@ -20,6 +21,7 @@ namespace AirPollutionPrediction.Infrastructure.Contexts
         }
 
         public DbSet<ChatHistory<ApplicationUser>> ChatHistories { get; set; }
+        public DbSet<AirPollutionForcast> AirPollutionForcasts { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
@@ -78,32 +80,32 @@ namespace AirPollutionPrediction.Infrastructure.Contexts
             });
             _ = builder.Entity<ApplicationUser>(entity =>
             {
-                _ = entity.ToTable(name: "Users", "Identity");
+                _ = entity.ToTable(name: "Users");
                 _ = entity.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
             _ = builder.Entity<ApplicationRole>(entity =>
             {
-                _ = entity.ToTable(name: "Roles", "Identity");
+                _ = entity.ToTable(name: "Roles");
             });
             _ = builder.Entity<IdentityUserRole<int>>(entity =>
             {
-                _ = entity.ToTable("UserRoles", "Identity");
+                _ = entity.ToTable("UserRoles");
             });
 
             _ = builder.Entity<IdentityUserClaim<int>>(entity =>
             {
-                _ = entity.ToTable("UserClaims", "Identity");
+                _ = entity.ToTable("UserClaims");
             });
 
             _ = builder.Entity<IdentityUserLogin<int>>(entity =>
             {
-                _ = entity.ToTable("UserLogins", "Identity");
+                _ = entity.ToTable("UserLogins");
             });
 
             _ = builder.Entity<ApplicationRoleClaim>(entity =>
             {
-                _ = entity.ToTable(name: "RoleClaims", "Identity");
+                _ = entity.ToTable(name: "RoleClaims");
 
                 _ = entity.HasOne(d => d.Role)
                     .WithMany(p => p.RoleClaims)
@@ -113,7 +115,7 @@ namespace AirPollutionPrediction.Infrastructure.Contexts
 
             _ = builder.Entity<IdentityUserToken<int>>(entity =>
             {
-                _ = entity.ToTable("UserTokens", "Identity");
+                _ = entity.ToTable("UserTokens");
             });
         }
     }

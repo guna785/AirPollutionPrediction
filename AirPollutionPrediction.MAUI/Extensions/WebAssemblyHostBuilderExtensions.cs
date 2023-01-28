@@ -80,7 +80,7 @@ namespace AirPollutionPrediction.MAUI.Extensions
                 {
                     client.DefaultRequestHeaders.AcceptLanguage.Clear();
                     client.DefaultRequestHeaders.AcceptLanguage.ParseAdd(CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName);
-                    client.BaseAddress = new Uri("https://localhost:7172/");
+                    client.BaseAddress = new Uri(builder.Configuration.GetSection("HostUrl").Value);
                 })
                 .AddHttpMessageHandler<AuthenticationHeaderHandler>();
             builder.Services.AddHttpClientInterceptor();

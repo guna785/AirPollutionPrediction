@@ -40,5 +40,16 @@
     <ProjectReference Include="..\AirPollutionPrediction.Application\AirPollutionPrediction.Application.csproj" />
     <ProjectReference Include="..\AirPollutionPrediction.Infrastructure\AirPollutionPrediction.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="MLModel.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="NO2.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SO2.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

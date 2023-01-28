@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using AirPollutionPrediction.Shared.Constants.Application;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace AirPollutionPrediction.MAUI.Extensions
 {
@@ -35,8 +37,14 @@ namespace AirPollutionPrediction.MAUI.Extensions
             After:
                         hubConnection ??= new HubConnectionBuilder()
             */
+            var a = Assembly.GetExecutingAssembly();
+            using var stream = a.GetManifestResourceStream("AirPollutionPrediction.MAUI.appsettings.json");
+
+            var config = new ConfigurationBuilder()
+                        .AddJsonStream(stream)
+                        .Build();
             hubConnection ??= new HubConnectionBuilder()
-                                  .WithUrl($"https://localhost:7172{ApplicationConstants.SignalR.HubUrl}", options =>
+                                  .WithUrl($"{config.GetSection("HostUrl").Value}{ApplicationConstants.SignalR.HubUrl}", options =>
                                   {
                                       options.AccessTokenProvider = async () => await SecureStorage.GetAsync("authToken");
                                   })

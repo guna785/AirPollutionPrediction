@@ -45,7 +45,7 @@ namespace AirPollutionPrediction_API
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath(@"D:\Projects\AirPollutionPrediction\AirPollutionPrediction.API\NO2.zip");
+        private static string MLNetModelPath = Path.GetFullPath(@"C:\Users\hp\Source\Repos\guna785\AirPollutionPrediction\AirPollutionPrediction.API\NO2.zip");
 
         public static readonly Lazy<TimeSeriesPredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<TimeSeriesPredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 
