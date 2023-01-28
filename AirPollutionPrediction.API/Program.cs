@@ -10,6 +10,7 @@ using Microsoft.Extensions.Localization;
 using AirPollutionPrediction.Application.Extensions;
 using AirPollutionPrediction.Infrastructure.Contexts;
 using AirPollutionPrediction.Infrastructure.Extensions;
+using Newtonsoft.Json.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +46,10 @@ builder.Services.AddApiVersioning(config =>
     config.ReportApiVersions = true;
 });
 builder.Services.AddLazyCache();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
