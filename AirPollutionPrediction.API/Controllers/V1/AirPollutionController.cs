@@ -1,5 +1,6 @@
 ﻿using AirPollutionPrediction.Application.Features.AirPollution.Commands.AddEdit;
 using AirPollutionPrediction.Application.Features.AirPollution.Queries.GetPaged;
+using AirPollutionPrediction.Application.Models;
 using AirPollutionPrediction_API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,9 +46,9 @@ namespace AirPollutionPrediction.API.Controllers.V1
             {
                 So2 = float.Parse(command.SO2)
             }, command.Horizon);
-            command.SO2 = Newtonsoft.Json.JsonConvert.SerializeObject(new { so2 = SO2Res.So2, so2ub = SO2Res.So2_UB, so2lb = SO2Res.So2_LB });
-            command.NO2 = Newtonsoft.Json.JsonConvert.SerializeObject(new { no2 = No2Res.No2, no2ub = No2Res.No2_UB, no2lb = No2Res.No2_LB });
-            command.CO = Newtonsoft.Json.JsonConvert.SerializeObject(new { co = result.Co, coub = result.Co_UB, colb = result.Co_LB });
+            command.SO2 = Newtonsoft.Json.JsonConvert.SerializeObject(new ChartObject() { Normal = SO2Res.So2, UperBand = SO2Res.So2_UB, LowerBand = SO2Res.So2_LB });
+            command.NO2 = Newtonsoft.Json.JsonConvert.SerializeObject(new ChartObject() { Normal = No2Res.No2, UperBand = No2Res.No2_UB, LowerBand = No2Res.No2_LB });
+            command.CO = Newtonsoft.Json.JsonConvert.SerializeObject(new ChartObject() { Normal = result.Co, UperBand = result.Co_UB, LowerBand = result.Co_LB });
             return Ok(await _mediator.Send(command));
         }
     }

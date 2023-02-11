@@ -35,8 +35,8 @@ else
             <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CO">@_localizer["Prediction CO"]</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="NO2">@_localizer["Prediction NO2"]</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="SO2">@_localizer["Prediction SO2"]</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CreatedOn">@_localizer["Created On"]</MudTableSortLabel></MudTh>
-
+          @*  <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CreatedOn">@_localizer["Created On"]</MudTableSortLabel></MudTh>
+*@
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Id">@context.Id.ToString()</MudTd>
@@ -44,18 +44,21 @@ else
             <MudTd DataLabel="Horizon">@context.Horizon</MudTd>
 
             <MudTd DataLabel="CO">
-                <MudHighlighter Text="@context.CO" HighlightedText="@_searchString" />
+               @* <MudHighlighter Text="@context.CO" HighlightedText="@_searchString" />*@
+               <Chart data="@context.CO"/>
             </MudTd>
             <MudTd DataLabel="NO2">
-                <MudHighlighter Text="@context.NO2" HighlightedText="@_searchString" />
+               @* <MudHighlighter Text="@context.NO2" HighlightedText="@_searchString" />*@
+                <Chart data="@context.NO2" />
             </MudTd>
             <MudTd DataLabel="SO2">
-                <MudHighlighter Text="@context.SO2" HighlightedText="@_searchString" />
+               @* <MudHighlighter Text="@context.SO2" HighlightedText="@_searchString" />*@
+                <Chart data="@context.SO2" />
             </MudTd>
-            <MudTd DataLabel="CreatedOn">
+           @* <MudTd DataLabel="CreatedOn">
                 <MudHighlighter Text="@context.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss tt")" HighlightedText="@_searchString" />
             </MudTd>
-            
+            *@
         </RowTemplate>
         <FooterContent>
             <MudSwitch @bind-Checked="@_dense" Color="Color.Secondary" Style="margin-left: 5px;">@_localizer["Dense"]</MudSwitch>

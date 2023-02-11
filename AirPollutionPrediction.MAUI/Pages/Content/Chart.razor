@@ -1,0 +1,40 @@
+﻿@using AirPollutionPrediction.Application.Models;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Converters;
+@using System.Dynamic;
+<div>
+    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px" ChartOptions="chartOptions"></MudChart>
+</div>
+
+@code {
+    [Parameter] public string data { get; set; }
+    private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
+
+    public ChartOptions chartOptions = new ChartOptions();
+
+
+    private List<ChartSeries> Series;
+    //{
+    //    new ChartSeries() { Name = "Series 1", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+    //    new ChartSeries() { Name = "Series 2", Data = new double[] { 10, 41, 35, 51, 49, 62, 69, 91, 148 } },
+    //};
+    private string[] XAxisLabels;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //base.OnInitializedAsync();
+        ChartObject obj = JsonConvert.DeserializeObject<ChartObject>(data);
+        Series = new List<ChartSeries>()
+        {
+            new ChartSeries() { Name="Normal" , Data= obj.Normal.Select(x=> (double) x).ToArray()},
+             new ChartSeries() { Name="Upper Band" , Data= obj.UperBand.Select(x=> (double) x).ToArray()},
+              new ChartSeries() { Name="Lower Band" , Data= obj.LowerBand.Select(x=> (double) x).ToArray()}
+        };
+        XAxisLabels = new string[obj.Normal.Length];
+        for(int i = 0; i < obj.Normal.Length; i++)
+        {
+            XAxisLabels[i] = (i + 1).ToString();
+        }
+
+    }
+}

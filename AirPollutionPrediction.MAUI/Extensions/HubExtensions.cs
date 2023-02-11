@@ -37,14 +37,14 @@ namespace AirPollutionPrediction.MAUI.Extensions
             After:
                         hubConnection ??= new HubConnectionBuilder()
             */
-            var a = Assembly.GetExecutingAssembly();
-            using var stream = a.GetManifestResourceStream("AirPollutionPrediction.MAUI.appsettings.json");
+            //var a = Assembly.GetExecutingAssembly();
+            //using var stream = a.GetManifestResourceStream("AirPollutionPrediction.MAUI.appsettings.json");
 
-            var config = new ConfigurationBuilder()
-                        .AddJsonStream(stream)
-                        .Build();
+            //var config = new ConfigurationBuilder()
+              //          .AddJsonStream(stream)
+                //        .Build();
             hubConnection ??= new HubConnectionBuilder()
-                                  .WithUrl($"{config.GetSection("HostUrl").Value}{ApplicationConstants.SignalR.HubUrl}", options =>
+                                  .WithUrl($"{"http://localhost:5172"}{ApplicationConstants.SignalR.HubUrl}", options =>
                                   {
                                       options.AccessTokenProvider = async () => await SecureStorage.GetAsync("authToken");
                                   })
