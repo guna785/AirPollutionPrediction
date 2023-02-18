@@ -24,9 +24,9 @@ else
     <MudTable Elevation="25" ServerData="@(new Func<TableState, Task<TableData<GetAllPaginatedAirpollutionResponse>>>(ServerReload))" Hover="true" Dense="@_dense" Bordered="@_bordered" Striped="@_striped" @ref="_table">
         <ToolBarContent>
             <div class="justify-center mud-text-align-center">
-                            
-                    <MudTextField Variant="Variant.Outlined" Margin="Margin.Dense" T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-               
+
+                <MudTextField Variant="Variant.Outlined" Margin="Margin.Dense" T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+
             </div>
         </ToolBarContent>
         <HeaderContent>
@@ -35,8 +35,8 @@ else
             <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CO">@_localizer["Prediction CO"]</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="NO2">@_localizer["Prediction NO2"]</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="SO2">@_localizer["Prediction SO2"]</MudTableSortLabel></MudTh>
-          @*  <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CreatedOn">@_localizer["Created On"]</MudTableSortLabel></MudTh>
-*@
+            @*  <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CreatedOn">@_localizer["Created On"]</MudTableSortLabel></MudTh>
+        *@
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Id">@context.Id.ToString()</MudTd>
@@ -44,21 +44,35 @@ else
             <MudTd DataLabel="Horizon">@context.Horizon</MudTd>
 
             <MudTd DataLabel="CO">
-               @* <MudHighlighter Text="@context.CO" HighlightedText="@_searchString" />*@
-               <Chart data="@context.CO"/>
+                <MudCard>
+                    <MudCardContent>
+                        <MudHighlighter Text="@context.CO" HighlightedText="@_searchString" />
+                        <Chart data="@context.CO" />
+                    </MudCardContent>
+                </MudCard>
+
             </MudTd>
             <MudTd DataLabel="NO2">
-               @* <MudHighlighter Text="@context.NO2" HighlightedText="@_searchString" />*@
-                <Chart data="@context.NO2" />
+                <MudCard>
+                    <MudCardContent>
+                        <MudHighlighter Text="@context.NO2" HighlightedText="@_searchString" />
+                        <Chart data="@context.NO2" />
+                    </MudCardContent>
+                </MudCard>
+
             </MudTd>
             <MudTd DataLabel="SO2">
-               @* <MudHighlighter Text="@context.SO2" HighlightedText="@_searchString" />*@
-                <Chart data="@context.SO2" />
+                <MudCard>
+                    <MudCardContent>
+                        <MudHighlighter Text="@context.SO2" HighlightedText="@_searchString" />
+                        <Chart data="@context.SO2" />
+                    </MudCardContent>
+                </MudCard>
             </MudTd>
-           @* <MudTd DataLabel="CreatedOn">
-                <MudHighlighter Text="@context.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss tt")" HighlightedText="@_searchString" />
-            </MudTd>
-            *@
+            @* <MudTd DataLabel="CreatedOn">
+        <MudHighlighter Text="@context.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss tt")" HighlightedText="@_searchString" />
+        </MudTd>
+        *@
         </RowTemplate>
         <FooterContent>
             <MudSwitch @bind-Checked="@_dense" Color="Color.Secondary" Style="margin-left: 5px;">@_localizer["Dense"]</MudSwitch>
@@ -86,13 +100,13 @@ else
     private bool _bordered = false;
 
     private ClaimsPrincipal _currentUser;
-   
+
     private bool _loaded;
 
     protected override async Task OnInitializedAsync()
     {
         _currentUser = await _authenticationManager.CurrentUser();
-      
+
         _loaded = true;
         HubConnection = HubConnection.TryInitialize(_navigationManager);
         if (HubConnection.State == HubConnectionState.Disconnected)
@@ -100,7 +114,7 @@ else
             await HubConnection.StartAsync();
         }
     }
-    
+
     private async Task<TableData<GetAllPaginatedAirpollutionResponse>> ServerReload(TableState state)
     {
         if (!string.IsNullOrWhiteSpace(_searchString))

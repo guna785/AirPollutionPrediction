@@ -58,7 +58,7 @@ namespace AirPollutionPrediction.Infrastructure
                 {
                     FirstName = "Super",
                     LastName = "User",
-                    Email = "info@b2lsolutions.in",
+                    Email = "btechproject1923@gmail.com",
                     UserName = "admin",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
