@@ -17,7 +17,7 @@
             @_localizer["Dashboard"]
         </MudNavLink>
     }*@
-   
+
     <MudNavLink Href="/account" Icon="@Icons.Material.Outlined.AccountCircle">
         @_localizer["Account"]
     </MudNavLink>
@@ -40,14 +40,14 @@
         </MudNavGroup>
     }
 
-    @if (_canViewChat)
+    @* @if (_canViewChat)
     {
         <MudNavGroup Icon="@Icons.Material.Outlined.Hub" Title="@_localizer["Communication"]" Expanded="false">
             <MudNavLink Href="/chat" Icon="@Icons.Material.Outlined.Chat">
                 @_localizer["Chat"]
             </MudNavLink>
         </MudNavGroup>
-    }
+    } *@
     @if (_canViewAuditTrails)
     {
         <MudNavLink Href="/audit-trails" Icon="@Icons.Material.Outlined.Security">
@@ -74,6 +74,6 @@
         _canViewRoles = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, AirPollutionPrediction.Shared.Constants.Permission.Permissions.Roles.View)).Succeeded;
         _canViewUsers = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, AirPollutionPrediction.Shared.Constants.Permission.Permissions.Users.View)).Succeeded;
         _canViewChat = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, AirPollutionPrediction.Shared.Constants.Permission.Permissions.Communication.Chat)).Succeeded;
-      
+
     }
 }

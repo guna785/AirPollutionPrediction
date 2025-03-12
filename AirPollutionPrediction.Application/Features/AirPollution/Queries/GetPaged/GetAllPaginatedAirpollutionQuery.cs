@@ -52,7 +52,7 @@ namespace AirPollutionPrediction.Application.Features.AirPollution.Queries.GetPa
                 NO2 = e.NO2,
                 SO2 = e.SO2,
             };
-           // AirPollutionForcastFilterSpecification AirPollutionForcastFilterSpec = new(request.SearchString);
+            //AirPollutionForcastFilterSpecification AirPollutionForcastFilterSpec = new(request.SearchString);
             if (request.OrderBy?.Any() != true)
             {
                 PaginatedResult<GetAllPaginatedAirpollutionResponse> data = await _unitOfWork.Repository<AirPollutionForcast>().Entities

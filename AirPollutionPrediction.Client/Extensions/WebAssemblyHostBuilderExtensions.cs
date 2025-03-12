@@ -48,6 +48,12 @@ namespace AirPollutionPrediction.Client.Extensions
     public static class WebAssemblyHostBuilderExtensions
     {
         private const string ClientName = "AirPollutionManagement.Server";
+        public static WebAssemblyHostBuilder AddRootComponents(this WebAssemblyHostBuilder builder)
+        {
+            builder.RootComponents.Add<App>("#app");
+
+            return builder;
+        }
 
         public static WebAssemblyHostBuilder AddClientServices(this WebAssemblyHostBuilder builder)
         {

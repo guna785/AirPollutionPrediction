@@ -46,6 +46,7 @@ namespace AirPollutionPrediction.Client.Authentication
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             string savedToken = await _localStorage.GetItemAsStringAsync(StorageConstants.Local.AuthToken);
+            Console.WriteLine(savedToken);
             if (string.IsNullOrWhiteSpace(savedToken))
             {
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));

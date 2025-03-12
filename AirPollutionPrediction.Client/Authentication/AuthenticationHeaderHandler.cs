@@ -7,7 +7,7 @@ namespace AirPollutionPrediction.Client.Authentication
 {
     public class AuthenticationHeaderHandler : DelegatingHandler
     {
-        private ILocalStorageService SecureStorage { get; set; }
+        private readonly ILocalStorageService SecureStorage;
         public AuthenticationHeaderHandler(ILocalStorageService _SecureStorage)
         {
             this.SecureStorage = _SecureStorage;
@@ -17,7 +17,7 @@ namespace AirPollutionPrediction.Client.Authentication
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+            //ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
             if (request.Headers.Authorization?.Scheme != "Bearer")
             {
                 string savedToken = await SecureStorage.GetItemAsStringAsync(StorageConstants.Local.AuthToken);

@@ -9,7 +9,7 @@ namespace AirPollutionPrediction.Client.Extensions
 {
     public static class HubExtensions
     {
-        public static HubConnection TryInitialize(this HubConnection hubConnection, NavigationManager navigationManager,ILocalStorageService localStorage)
+        public static HubConnection TryInitialize(this HubConnection hubConnection, NavigationManager navigationManager)
         {
 
             /* Unmerged change from project 'AirPollutionPrediction.Client (net6.0-maccatalyst)'
@@ -44,13 +44,13 @@ namespace AirPollutionPrediction.Client.Extensions
             //var config = new ConfigurationBuilder()
               //          .AddJsonStream(stream)
                 //        .Build();
-            hubConnection ??= new HubConnectionBuilder()
-                                  .WithUrl($"{"http://localhost:5172"}{ApplicationConstants.SignalR.HubUrl}", options =>
-                                  {
-                                      options.AccessTokenProvider = async () => await localStorage.GetItemAsStringAsync("authToken");
-                                  })
-                                  .WithAutomaticReconnect()
-                                  .Build();
+            //hubConnection ??= new HubConnectionBuilder()
+            //                      .WithUrl($"{"http://localhost:5172"}{ApplicationConstants.SignalR.HubUrl}", options =>
+            //                      {
+            //                          options.AccessTokenProvider = async () => await localStorage.GetItemAsStringAsync("authToken");
+            //                      })
+            //                      .WithAutomaticReconnect()
+            //                      .Build();
             return hubConnection;
         }
         //public static HubConnection TryInitialize(this HubConnection hubConnection, NavigationManager navigationManager)
