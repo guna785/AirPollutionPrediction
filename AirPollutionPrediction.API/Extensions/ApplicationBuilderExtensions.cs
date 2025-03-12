@@ -18,7 +18,7 @@ namespace AirPollutionPrediction.API.Extensions
             if (env.IsDevelopment())
             {
                 _ = app.UseDeveloperExceptionPage();
-                //app.UseWebAssemblyDebugging();
+                app.UseWebAssemblyDebugging();
             }
 
             return app;
@@ -51,9 +51,9 @@ namespace AirPollutionPrediction.API.Extensions
         {
             return app.UseEndpoints(endpoints =>
                     {
-                        //endpoints.MapRazorPages();
+                        endpoints.MapRazorPages();
                         _ = endpoints.MapControllers();
-                        //endpoints.MapFallbackToFile("index.html");
+                        endpoints.MapFallbackToFile("index.html");
                         _ = endpoints.MapHub<SignalRHub>(ApplicationConstants.SignalR.HubUrl);
                     });
         }

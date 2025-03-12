@@ -37,7 +37,7 @@ namespace AirPollutionPrediction.Infrastructure
         {
             AddAdministrator();
             //AddBasicUser();
-            _ = _db.SaveChanges();
+            //_ = _db.SaveChanges();
         }
 
         private void AddAdministrator()

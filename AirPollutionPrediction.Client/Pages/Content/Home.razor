@@ -1,0 +1,158 @@
+﻿@page "/home"
+@page "/"
+@using AirPollutionPrediction.Application.Features.AirPollution.Queries.GetPaged;
+@using AirPollutionPrediction.Application.Requests.Features;
+@using AirPollutionPrediction.Application.Features.AirPollution.Commands.AddEdit;
+@using AirPollutionPrediction.Client.Managers.Dashboard;
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Home> _localizer
+
+
+
+<style>
+    .mud-table-container {
+        overflow: auto;
+    }
+</style>
+
+<VisitorTitle Title="@_localizer["AirPollutions"]" Description="@_localizer["Manage AirPollutions"]" />
+@if (!_loaded)
+{
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+}
+else
+{
+    <MudTable Elevation="25" ServerData="@(new Func<TableState,CancellationToken,Task<TableData<GetAllPaginatedAirpollutionResponse>>>(ServerReload))" Hover="true" Dense="@_dense" Bordered="@_bordered" Striped="@_striped" @ref="_table">
+        <ToolBarContent>
+            <div class="justify-center mud-text-align-center">
+
+                <MudTextField Variant="Variant.Outlined" Margin="Margin.Dense" T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+
+            </div>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="Id">@_localizer["Id"]</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="Horizon">@_localizer["Horizon"]</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CO">@_localizer["Prediction CO"]</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="NO2">@_localizer["Prediction NO2"]</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="SO2">@_localizer["Prediction SO2"]</MudTableSortLabel></MudTh>
+            @*  <MudTh><MudTableSortLabel T="GetAllPaginatedAirpollutionResponse" SortLabel="CreatedOn">@_localizer["Created On"]</MudTableSortLabel></MudTh>
+        *@
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Id">@context.Id.ToString()</MudTd>
+
+            <MudTd DataLabel="Horizon">@context.Horizon</MudTd>
+
+            <MudTd DataLabel="CO">
+                <MudCard>
+                    <MudCardContent>
+                        <MudHighlighter Text="@context.CO" HighlightedText="@_searchString" />
+                        <Chart data="@context.CO" />
+                    </MudCardContent>
+                </MudCard>
+
+            </MudTd>
+            <MudTd DataLabel="NO2">
+                <MudCard>
+                    <MudCardContent>
+                        <MudHighlighter Text="@context.NO2" HighlightedText="@_searchString" />
+                        <Chart data="@context.NO2" />
+                    </MudCardContent>
+                </MudCard>
+
+            </MudTd>
+            <MudTd DataLabel="SO2">
+                <MudCard>
+                    <MudCardContent>
+                        <MudHighlighter Text="@context.SO2" HighlightedText="@_searchString" />
+                        <Chart data="@context.SO2" />
+                    </MudCardContent>
+                </MudCard>
+            </MudTd>
+            @* <MudTd DataLabel="CreatedOn">
+        <MudHighlighter Text="@context.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss tt")" HighlightedText="@_searchString" />
+        </MudTd>
+        *@
+        </RowTemplate>
+        <FooterContent>
+            <MudSwitch T="bool" @bind-Checked="@_dense" Color="Color.Secondary" Style="margin-left: 5px;">@_localizer["Dense"]</MudSwitch>
+            <MudSwitch T="bool" @bind-Checked="@_striped" Color="Color.Tertiary" Style="margin-left: 5px;">@_localizer["Striped"]</MudSwitch>
+            <MudSwitch T="bool" @bind-Checked="@_bordered" Color="Color.Warning" Style="margin-left: 5px;">@_localizer["Bordered"]</MudSwitch>
+        </FooterContent>
+        <PagerContent>
+            <TablePager />
+        </PagerContent>
+    </MudTable>
+}
+
+@code {
+    [Inject] private IAirPollutionManager AirPollutionManager { get; set; }
+
+    [CascadingParameter] private HubConnection HubConnection { get; set; }
+
+    private IEnumerable<GetAllPaginatedAirpollutionResponse> _pagedData;
+    private MudTable<GetAllPaginatedAirpollutionResponse> _table;
+    private int _totalItems;
+    private int _currentPage;
+    private string _searchString = "";
+    private bool _dense = false;
+    private bool _striped = true;
+    private bool _bordered = false;
+
+    private ClaimsPrincipal _currentUser;
+
+    private bool _loaded;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _currentUser = await _authenticationManager.CurrentUser();
+
+        _loaded = true;
+        // HubConnection = HubConnection.TryInitialize(_navigationManager);
+        // if (HubConnection.State == HubConnectionState.Disconnected)
+        // {
+        //     await HubConnection.StartAsync();
+        // }
+    }
+
+    private async Task<TableData<GetAllPaginatedAirpollutionResponse>> ServerReload(TableState state, CancellationToken cancellationToken)
+    {
+        if (!string.IsNullOrWhiteSpace(_searchString))
+        {
+            state.Page = 0;
+        }
+        await LoadData(state.Page, state.PageSize, state);
+        return new TableData<GetAllPaginatedAirpollutionResponse> { TotalItems = _totalItems, Items = _pagedData };
+    }
+
+    private async Task LoadData(int pageNumber, int pageSize, TableState state)
+    {
+        string[] orderings = null;
+        if (!string.IsNullOrEmpty(state.SortLabel))
+        {
+            orderings = state.SortDirection != SortDirection.None ? new[] { $"{state.SortLabel} {state.SortDirection}" } : new[] { $"{state.SortLabel}" };
+        }
+
+        var request = new GetAirPollutionPagedRequest { PageSize = pageSize, PageNumber = pageNumber + 1, SearchString = _searchString, Orderby = orderings };
+        var response = await AirPollutionManager.GetDataAsync(request);
+        if (response.Succeeded)
+        {
+            _totalItems = response.TotalCount;
+            _currentPage = response.CurrentPage;
+            _pagedData = response.Data;
+        }
+        else
+        {
+            foreach (var message in response.Messages)
+            {
+                _snackBar.Add(message, Severity.Error);
+            }
+        }
+    }
+
+    private void OnSearch(string text)
+    {
+        _searchString = text;
+        _table.ReloadServerData();
+    }
+}

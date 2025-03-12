@@ -1,0 +1,62 @@
+﻿@inherits LayoutComponentBase
+@inject Microsoft.Extensions.Localization.IStringLocalizer<MainLayout> _localizer
+<MudRTLProvider RightToLeft="@_rightToLeft">
+    <audio id="notification" src="/media/notification.mp3" />
+    <MudThemeProvider  @bind-IsDarkMode="@isDarkMode" DefaultScrollbar="true" Theme="_currentTheme" />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+    <AuthorizeView>
+        <NotAuthorized>
+            <MudAppBar Elevation="4" Color="Color.Primary">
+                <MudSpacer />
+                <LanguageSelector />
+                <MudFab Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="@((e) => DarkMode())" />
+            </MudAppBar>
+
+            <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
+                <MudPaper Elevation="25" Class="pa-8" Style="width: 500px;">
+                    @Body
+                </MudPaper>
+            </MudContainer>
+        </NotAuthorized>
+        <Authorized>
+            <MudLayout>
+                
+                    <MainBody OnDarkModeToggle="@DarkMode" OnRightToLeftToggle="@RightToLeftToggle">
+                        @Body
+                    </MainBody>
+               
+            </MudLayout>
+        </Authorized>
+    </AuthorizeView>
+</MudRTLProvider>
+@code {
+    private MudTheme _currentTheme;
+    private bool _rightToLeft = false;
+    [Inject] private IDialogService DialogService { get; set; }
+    private bool isFingerPrintAuth = false;
+    private async Task RightToLeftToggle(bool value)
+    {
+        _rightToLeft = value;
+        await Task.CompletedTask;
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        _currentTheme = AirPollutionTheme.DefaultTheme;
+        _currentTheme = await _clientPreferenceManager.GetCurrentThemeAsync();
+        _rightToLeft = await _clientPreferenceManager.IsRTL();
+        _interceptor.RegisterEvent();
+    }
+    
+    private bool isDarkMode = false;
+    private async Task DarkMode()
+    {
+        isDarkMode = await _clientPreferenceManager.ToggleDarkModeAsync();
+
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+    }
+}

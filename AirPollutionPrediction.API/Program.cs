@@ -11,6 +11,7 @@ using AirPollutionPrediction.Application.Extensions;
 using AirPollutionPrediction.Infrastructure.Contexts;
 using AirPollutionPrediction.Infrastructure.Extensions;
 using Newtonsoft.Json.Converters;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,7 @@ builder.Services.InfrastructureMappings();
 //builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 //builder.Services.AddHangfireServer();
 builder.Services.AddControllers().AddValidators();
-//services.AddRazorPages();
+builder.Services.AddRazorPages();
 builder.Services.AddApiVersioning(config =>
 {
     config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -84,7 +85,7 @@ app.UseForwarding(app.Configuration);
 app.UseExceptionHandling(app.Environment);
 //app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlerMiddleware>();
-//app.UseBlazorFrameworkFiles();
+app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -105,4 +106,4 @@ app.ConfigureSwagger();
 app.Initialize(app.Configuration);
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

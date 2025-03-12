@@ -1,0 +1,62 @@
+﻿
+@using AirPollutionPrediction.Client
+@using AirPollutionPrediction.Client.Layout
+@using System.Net.Http
+@using AirPollutionPrediction.Client.Authentication
+@using System.Net.Http.Headers
+@using System.Text
+@using AirPollutionPrediction.Client.Managers.Identity.Account
+@using AirPollutionPrediction.Client.Managers.Identity.Authentication
+@using AirPollutionPrediction.Client.Managers.Identity.Users
+@using AirPollutionPrediction.Client.Managers.Interceptors
+@using AirPollutionPrediction.Client.Managers.Preferences
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using AirPollutionPrediction.Client
+@using AirPollutionPrediction.Client.Layout
+@using AirPollutionPrediction.Client.Layout.Components
+@using AirPollutionPrediction.Client.Layout.Dialogs
+@using AirPollutionPrediction.Client.Pages.Authentication
+@using AirPollutionPrediction.Client.Pages.Utilities
+@using AirPollutionPrediction.Client.Managers.Audit
+@using AirPollutionPrediction.Client.Managers.Communication
+@using AirPollutionPrediction.Client.Managers.Dashboard
+@using MudBlazor
+@using AirPollutionPrediction.UI.Infrastructure.Settings
+@using AirPollutionPrediction.Shared.Constants.Application
+@using AirPollutionPrediction.Client.Managers.Identity.Roles
+@using Microsoft.AspNetCore.SignalR.Client
+@using AirPollutionPrediction.Client.Extensions
+@using AirPollutionPrediction.Application.Requests
+@using AirPollutionPrediction.Application.Requests.Identity
+@using AirPollutionPrediction.Application.Responses.Audit
+@using AirPollutionPrediction.Application.Responses.Identity
+@using AirPollutionPrediction.Application.Models.Chat
+@using AirPollutionPrediction.Application.Interfaces.Chat
+@using AirPollutionPrediction.Shared.Wrapper
+@using Blazored.FluentValidation
+@using AirPollutionPrediction.Shared.Constants.Storage
+@using System.Security.Claims
+@using Blazored.LocalStorage
+@inject NavigationManager _navigationManager
+
+@attribute [Authorize]
+@inject IAuthenticationManager _authenticationManager
+@inject IAccountManager _accountManager
+@inject NavigationManager _navigationManager
+@inject AirPollutionAuthenticationStateProvider _stateProvider
+@inject IAuthorizationService _authorizationService
+@inject ISnackbar _snackBar
+@inject IDialogService _dialogService
+@inject HttpClient _httpClient
+@inject IHttpInterceptorManager _interceptor
+@inject ClientPreferenceManager _clientPreferenceManager
+@inject IUserManager _userManager
+@inject IJSRuntime _jsRuntime
+
+@inject ILocalStorageService _localStorage
