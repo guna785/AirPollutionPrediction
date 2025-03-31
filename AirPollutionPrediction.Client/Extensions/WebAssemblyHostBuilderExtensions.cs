@@ -5,35 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 
-/* Unmerged change from project 'AirPollutionPrediction.Client (net6.0-maccatalyst)'
-Before:
-using System;
-After:
-using MudBlazor;
-using MudBlazor.Services;
-using AirPollutionPrediction.Shared.Constants.Permission;
-using System;
-*/
 
-/* Unmerged change from project 'AirPollutionPrediction.Client (net6.0-ios)'
-Before:
-using System;
-After:
-using MudBlazor;
-using MudBlazor.Services;
-using AirPollutionPrediction.Shared.Constants.Permission;
-using System;
-*/
-
-/* Unmerged change from project 'AirPollutionPrediction.Client (net6.0-windows10.0.19041.0)'
-Before:
-using System;
-After:
-using MudBlazor;
-using MudBlazor.Services;
-using AirPollutionPrediction.Shared.Constants.Permission;
-using System;
-*/
 using MudBlazor.Services;
 using AirPollutionPrediction.Shared.Constants.Permission;
 using System.Globalization;
@@ -89,7 +61,7 @@ namespace AirPollutionPrediction.Client.Extensions
                 {
                     client.DefaultRequestHeaders.AcceptLanguage.Clear();
                     client.DefaultRequestHeaders.AcceptLanguage.ParseAdd(CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName);
-                    client.BaseAddress = new Uri("http://localhost:5172/");
+                    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
                 })
                 .AddHttpMessageHandler<AuthenticationHeaderHandler>();
             builder.Services.AddHttpClientInterceptor();
